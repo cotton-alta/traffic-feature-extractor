@@ -12,14 +12,25 @@ export {
         flag:                   int &log;
         source_bytes:           count &log;
         destination_bytes:      count &log;
+        land                    int &log;
     };
+
+    redef Kafka::logs_to_send = set(Main::LOG);
+    redef Kafka::topic_name = "zeek";
+    redef Kafka::kafka_conf = table(
+        ["metadata.broker.list"] = "localhost:" + getenv("CAPTURE_PORT")
+    );
 }
 
 event zeek_init()
     {
     if ( Supervisor::is_supervisor() )
         {
-        local sn = Supervisor::NodeConfig($name="node1", $interface="en0", $directory="./logs");
+        local sn = Supervisor::NodeConfig(
+            $name="node1",
+            $interface=getenv("CAPTURE_INTERFACE"),
+            $directory="./logs"
+        );
         local res = Supervisor::create(sn);
 
         if ( res == "" )
@@ -36,11 +47,14 @@ event connection_state_remove(c: connection)
     {
     local orig = 0;
     local resp = 0;
+    local land = 0;
 
     if ( c$conn?$orig_bytes )
         orig = c$conn$orig_bytes;
     if ( c$conn?$resp_bytes )
         resp = c$conn$resp_bytes;
+    if ( c$id$orig_h == c$id$resp_h && c$id$orig_p == c$id$resp_p )
+        land = 1;
 
     Log::write(Main::LOG, [
         $duration=interval_to_double(c$duration),
@@ -48,7 +62,8 @@ event connection_state_remove(c: connection)
         $protocol_type=cat(c$conn$proto),
         $flag=+0,
         $source_bytes=orig,
-        $destination_bytes=resp
+        $destination_bytes=resp,
+        $land=land
     ]);
     }
 
