@@ -22,8 +22,11 @@ ARG LIBRDKAFKA_VERSION
 # copy in the .screenrc
 COPY .screenrc /root
 
-# copy in the extractor.zeek
+# copy in the zeek script
 COPY extractor.zeek /root
+COPY manager.zeek /root
+COPY worker.zeek /root
+COPY traffic_log.zeek /root
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get -y install \

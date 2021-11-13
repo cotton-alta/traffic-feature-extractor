@@ -12,7 +12,7 @@ export {
         flag:                   int &log;
         source_bytes:           count &log;
         destination_bytes:      count &log;
-        land                    int &log;
+        land:                   int &log;
     };
 
     redef Kafka::logs_to_send = set(Main::LOG);
