@@ -19,7 +19,7 @@ event zeek_init()
         ];
         cluster["worker"] = [
             $role=Supervisor::WORKER,
-            $host=getenv("WORKER_IP"),
+            $host=to_addr(getenv("WORKER_IP")),
             $p=10000/tcp,
             $interface=getenv("CAPTURE_INTERFACE")
         ];

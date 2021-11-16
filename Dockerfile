@@ -72,4 +72,5 @@ RUN ./configure --enable-sasl --install-deps \
  && ldconfig
 
 # install zeek-kafka
+WORKDIR /root
 RUN zkg install --force seisollc/zeek-kafka --version main

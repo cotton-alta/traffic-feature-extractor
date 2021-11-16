@@ -13,7 +13,7 @@ event zeek_init()
         local cluster: table[string] of Supervisor::ClusterEndpoint;
         cluster["manager"] = [
             $role=Supervisor::MANAGER,
-            $host=getenv("MANAGER_IP"),
+            $host=to_addr(getenv("MANAGER_IP")),
             $p=10001/tcp
         ];
         cluster["worker"] = [
