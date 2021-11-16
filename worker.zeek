@@ -8,7 +8,7 @@ event zeek_init()
     {
     if ( Supervisor::is_supervisor() )
         {
-        Broker::peer("127.0.0.1");
+        Broker::peer(getenv("MANAGER_IP"));
 
         local cluster: table[string] of Supervisor::ClusterEndpoint;
         cluster["manager"] = [
