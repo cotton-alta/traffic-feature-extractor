@@ -8,7 +8,7 @@ event zeek_init()
     {
     if ( Supervisor::is_supervisor() )
         {
-        Broker::peer(getenv("MANAGER_IP"));
+        Broker::peer(getenv("MANAGER_IP"), to_port(getenv("BROKER_PORT")));
 
         local cluster: table[string] of Supervisor::ClusterEndpoint;
         cluster["manager"] = [
@@ -47,6 +47,8 @@ event connection_state_remove(c: connection)
     local orig = 0;
     local resp = 0;
     local land = 0;
+
+    print fmt("packet received.");
 
     if ( c$conn?$orig_bytes )
         orig = c$conn$orig_bytes;

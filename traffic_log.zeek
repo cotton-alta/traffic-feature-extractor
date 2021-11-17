@@ -24,5 +24,7 @@ export {
 
 event log_test(rec: TrafficLog::Info) 
     {
+        print fmt("packet received from worker.");
+
         Log::write(TrafficLog::LOG, rec);
     }
