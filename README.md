@@ -17,7 +17,14 @@ $ zeek -N Seiso::Kafka
 
 for mac
 ```
-$ docker run --add-host=localhost:<host private address> -e CAPTURE_INTERFACE=<network interface to capture> -e CAPTURE_PORT=<port on which kafka broker is running> --rm -it $ traffic-feature-extractor /bin/bash
+$ docker run --add-host=localhost:<host private address> -e CAPTURE_INTERFACE=<network interface to capture> -e CAPTURE_PORT=<port on which kafka broker is running> --rm -it traffic-feature-extractor /bin/bash
+
+zeek -j -C extractor.zeek
+```
+
+for linux
+```
+$ docker run --net=host -e CAPTURE_INTERFACE=<network interface to capture> -e CAPTURE_PORT=<port on which kafka broker is running> --rm -it traffic-feature-extractor /bin/bash
 
 zeek -j -C extractor.zeek
 ```
