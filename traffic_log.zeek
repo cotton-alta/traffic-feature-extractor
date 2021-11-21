@@ -11,6 +11,9 @@ export {
         source_bytes:           count &log;
         destination_bytes:      count &log;
         land:                   int &log;
+        wrong_fragment:         count &log;
+        # num_failed_logins:      count &log;
+        # logged_in:              int &log;
     };
 
     redef Kafka::logs_to_send = set(TrafficLog::LOG);
@@ -22,7 +25,7 @@ export {
     global log_test: event(rec: TrafficLog::Info);
 }
 
-event log_test(rec: TrafficLog::Info) 
+event log_test(rec: TrafficLog::Info)
     {
         print fmt("packet received from worker.");
 
