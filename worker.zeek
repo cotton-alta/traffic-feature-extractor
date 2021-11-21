@@ -41,7 +41,7 @@ event zeek_init()
         }
     else
         print fmt("supervised node '%s' zeek_init()", Supervisor::node()$name);
-        Log::create_stream(TrafficLog::LOG, [$columns=TrafficLog::Info, $ev=TrafficLog::log_test, $path="factor"]);
+        Log::create_stream(TrafficLog::LOG, [$columns=TrafficLog::Info, $path="factor"]);
     }
 
 event connection_state_remove(c: connection)
@@ -81,7 +81,7 @@ event connection_state_remove(c: connection)
 
 event ssh_auth_attempted(c: connection, authenticated: bool)
     {
-    print fmt("ssh_auth_attempted: ", c);
+    print fmt("ssh_auth_attempted: %s", c);
     }
 
 event zeek_done()
