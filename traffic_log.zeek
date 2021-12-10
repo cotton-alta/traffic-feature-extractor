@@ -12,8 +12,8 @@ export {
         destination_bytes:      count &log;
         land:                   int &log;
         wrong_fragment:         count &log;
-        # num_failed_logins:      count &log;
-        # logged_in:              int &log;
+        num_failed_logins:      int &log;
+        logged_in:              int &log;
     };
 
     redef Kafka::logs_to_send = set(TrafficLog::LOG);
