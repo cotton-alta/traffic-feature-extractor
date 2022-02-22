@@ -69,7 +69,11 @@ event connection_state_remove(c: connection)
         $land=land,
         $wrong_fragment=c$conn$missed_bytes/1500,
         $num_failed_logins=0,
-        $logged_in=0
+        $logged_in=0,
+        $src_h=c$conn$id$orig_h,
+        $dst_h=c$conn$id$resp_h,
+        $src_p=c$conn$id$orig_p,
+        $dst_p=c$conn$id$resp_p
     ];
 
     Broker::publish("zeek/logs/forward/test", TrafficLog::log_test, log);
@@ -98,7 +102,11 @@ event ssh_auth_result(c: connection, result: bool, auth_attempts: count)
         $land=land,
         $wrong_fragment=0,
         $num_failed_logins=auth_attempts,
-        $logged_in=logged_in
+        $logged_in=logged_in,
+        $src_h=c$conn$id$orig_h,
+        $dst_h=c$conn$id$resp_h,
+        $src_p=c$conn$id$orig_p,
+        $dst_p=c$conn$id$resp_p
     ];
     Broker::publish("zeek/logs/forward/test", TrafficLog::log_test, log);
     }

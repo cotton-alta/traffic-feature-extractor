@@ -14,6 +14,10 @@ export {
         wrong_fragment:         count &log;
         num_failed_logins:      int &log;
         logged_in:              int &log;
+        src_h:                  addr &log;
+        dst_h:                  addr &log;
+        src_p:                  port &log;
+        dst_p:                  port &log;
     };
 
     redef Kafka::logs_to_send = set(TrafficLog::LOG);
