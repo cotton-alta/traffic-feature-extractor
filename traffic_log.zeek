@@ -7,7 +7,7 @@ export {
         duration:               double &log;
         protocol_type:          string &log;
         service:                set[string] &log;
-        flag:                   int &log;
+        flag:                   string &log;
         source_bytes:           count &log;
         destination_bytes:      count &log;
         land:                   int &log;

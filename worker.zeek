@@ -50,6 +50,7 @@ event connection_state_remove(c: connection)
     local resp = 0;
     local land = 0;
     local logged_in = 0;
+    local flag = "";
 
     print fmt("packet received.");
     print fmt("missed bytes: %s, wrong fragment: %s", c$conn$missed_bytes, c$conn$missed_bytes/1500);
@@ -60,6 +61,8 @@ event connection_state_remove(c: connection)
         resp = c$conn$resp_bytes;
     if ( c$id$orig_h == c$id$resp_h && c$id$orig_p == c$id$resp_p )
         land = 1;
+    if ( c$conn?$conn_state )
+        flag = c$conn$conn_state;
     # if ( c$ssh$auth_success )
     #     logged_in = 1;
 
@@ -67,7 +70,7 @@ event connection_state_remove(c: connection)
         $duration=interval_to_double(c$duration),
         $service=c$service,
         $protocol_type=cat(c$conn$proto),
-        $flag=+0,
+        $flag=flag,
         $source_bytes=orig,
         $destination_bytes=resp,
         $land=land,
