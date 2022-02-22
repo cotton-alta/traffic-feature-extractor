@@ -103,17 +103,17 @@ event ssh_auth_result(c: connection, result: bool, auth_attempts: count)
         $duration=interval_to_double(c$duration),
         $service=c$service,
         $protocol_type="SSH",
-        $flag=0,
+        $flag="SF",
         $source_bytes=0,
         $destination_bytes=0,
         $land=land,
         $wrong_fragment=0,
         $num_failed_logins=auth_attempts,
         $logged_in=logged_in,
-        $src_h=c$conn$id$orig_h,
-        $dst_h=c$conn$id$resp_h,
-        $src_p=c$conn$id$orig_p,
-        $dst_p=c$conn$id$resp_p
+        $src_h=c$ssh$id$orig_h,
+        $dst_h=c$ssh$id$resp_h,
+        $src_p=c$ssh$id$orig_p,
+        $dst_p=c$ssh$id$resp_p
     ];
     Broker::publish("zeek/logs/forward/test", TrafficLog::log_test, log);
     }
